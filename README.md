@@ -19,3 +19,167 @@ To use this sample, you should substitute the `owner_id` with the one found thro
 ![Initialize a Service account](docs/copyAccountId.png)
 
 The `environments.tf` and `fractals.tf` contains the definition of Environments and Fractals respectively.
+
+## Output:
+
+As an example, the output of such a plan should be:
+
+```terraform
+Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # fractalcloud_fractal.containerized will be created
+  + resource "fractalcloud_fractal" "containerized" {
+      + blueprint_components = [
+          + {
+              + display_name = "Kubernetes cluster for workloads"
+              + id           = "k8s-containerized"
+              + links        = []
+              + locked       = false
+              + parameters   = {
+                  + "apiGateway" = {},
+                  + "logging"    = {},
+                  + "monitoring" = {},
+                }
+              + type         = "NetworkAndCompute.PaaS.ContainerPlatform"
+              + version      = "1.2.12"
+            },
+        ]
+      + created_at           = (known after apply)
+      + created_by           = (known after apply)
+      + description          = "Microservice Fractal for our Organization"
+      + id                   = (known after apply)
+      + interface_operations = [
+          + {
+              + instructions = [
+                  + {
+                      + component_id     = "k8s-containerized"
+                      + input_parameters = [
+                          + "workload",
+                        ]
+                      + operation        = "withWorkload"
+                    },
+                  + {
+                      + component_id     = "k8s-containerized"
+                      + input_parameters = [
+                          + "externalDns",
+                          + "workload",
+                        ]
+                      + operation        = "exposeService"
+                    },
+                ]
+              + name         = "withExposedWorkload"
+              + parameters   = [
+                  + "workload, externalDns",
+                ]
+            },
+        ]
+      + resource_group_id    = (known after apply)
+      + status               = (known after apply)
+      + updated_at           = (known after apply)
+      + updated_by           = (known after apply)
+      + version              = "1.0"
+    }
+
+  # fractalcloud_management_environment.production will be created
+  + resource "fractalcloud_management_environment" "production" {
+      + azure_agent     = {
+          + region          = "westeurope"
+          + subscription_id = "xxx"
+          + tenant_id       = "xxx"
+        }
+      + created_at      = (known after apply)
+      + created_by      = (known after apply)
+      + display_name    = "Production"
+      + gcp_agent       = {
+          + organization_id = "xxx"
+          + project_id      = "xxx"
+          + region          = "europe-west3"
+        }
+      + id              = (known after apply)
+      + owner_id        = "xxx"
+      + resource_groups = [
+          + (known after apply),
+        ]
+      + status          = (known after apply)
+      + type            = "Personal"
+      + updated_at      = (known after apply)
+      + updated_by      = (known after apply)
+    }
+
+  # fractalcloud_operational_environment.audi_production will be created
+  + resource "fractalcloud_operational_environment" "audi_production" {
+      + agents                    = [
+          + "Azure",
+        ]
+      + created_at                = (known after apply)
+      + created_by                = (known after apply)
+      + display_name              = "Audi Production"
+      + id                        = (known after apply)
+      + management_environment_id = (known after apply)
+      + resource_groups           = [
+          + (known after apply),
+        ]
+      + status                    = (known after apply)
+      + updated_at                = (known after apply)
+      + updated_by                = (known after apply)
+    }
+
+  # fractalcloud_operational_environment.toyota_production will be created
+  + resource "fractalcloud_operational_environment" "toyota_production" {
+      + agents                    = [
+          + "Gcp",
+        ]
+      + created_at                = (known after apply)
+      + created_by                = (known after apply)
+      + display_name              = "Toyota Production"
+      + id                        = (known after apply)
+      + management_environment_id = (known after apply)
+      + resource_groups           = [
+          + (known after apply),
+        ]
+      + status                    = (known after apply)
+      + updated_at                = (known after apply)
+      + updated_by                = (known after apply)
+    }
+
+  # fractalcloud_resource_group.production will be created
+  + resource "fractalcloud_resource_group" "production" {
+      + created_at   = (known after apply)
+      + created_by   = (known after apply)
+      + display_name = "Production"
+      + id           = (known after apply)
+      + owner_id     = "xxx"
+      + type         = "Personal"
+      + updated_at   = (known after apply)
+      + updated_by   = (known after apply)
+    }
+
+  # fractalcloud_resource_group.production_audi will be created
+  + resource "fractalcloud_resource_group" "production_audi" {
+      + created_at   = (known after apply)
+      + created_by   = (known after apply)
+      + display_name = "Audi Production"
+      + id           = (known after apply)
+      + owner_id     = "xxx"
+      + type         = "Personal"
+      + updated_at   = (known after apply)
+      + updated_by   = (known after apply)
+    }
+
+  # fractalcloud_resource_group.production_toyota will be created
+  + resource "fractalcloud_resource_group" "production_toyota" {
+      + created_at   = (known after apply)
+      + created_by   = (known after apply)
+      + display_name = "Toyota Production"
+      + id           = (known after apply)
+      + owner_id     = "xxx"
+      + type         = "Personal"
+      + updated_at   = (known after apply)
+      + updated_by   = (known after apply)
+    }
+
+Plan: 7 to add, 0 to change, 0 to destroy.
+```
